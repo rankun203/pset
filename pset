@@ -89,14 +89,17 @@ function disableAll {
 
 function listAll {
   echo "Web Proxy"
+  echo "----"
   networksetup -getwebproxy ${proxy_device}
   echo ""
 
   echo "Secured web proxy"
+  echo "----"
   networksetup -getsecurewebproxy ${proxy_device}
   echo ""
 
   echo "Socks proxy"
+  echo "----"
   networksetup -getsocksfirewallproxy ${proxy_device}
 }
 
