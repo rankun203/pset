@@ -9,8 +9,6 @@ usage: sudo pset -l
 
 pSet - a CLI, help you manage your OSX network settings. <http://youdar.net>
 
-First configure the script itself, set ip, port.
-
 options:
 
   -d disable proxy
@@ -38,8 +36,6 @@ EXAMPLES:
     sudo pset -d all
     sudo pset -d web
     sudo pset -d socks
-
-* ip and port options are not supported for now
 
 pSet v0.1
 ```
