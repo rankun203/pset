@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+action=${1}
+proxy_device="Wi-Fi"
+socks_ip=127.0.0.1
+socks_port=8089
+http_ip=127.0.0.1
+http_port=8123
+helptext=$(cat <<EOF
+usage: sudo pset -l
+       sudo pset -s
+       sudo pset -e <all|web|socks>
+       sudo pset -d <all|web|socks>
+
+pSet - a CLI, help you manage your OSX network settings. <http://youdar.net>
+
+pre-defined ACTIONs:
+
+options:
+
+  -d disable proxy
+    all   disable all
+    web   disable web proxy
+    socks disable socks proxy
+
+  -e enable proxy
+    all   enable all
+    web   enable web proxy
+    socks enable socks proxy
+
+  -h show this help
+
+  -l list proxies
+  
+  -s set all proxy (web + socks)
+
+EXAMPLES:
+    sudo pset -s
+    sudo pset -l
+    sudo pset -e all
+    sudo pset -e web
+    sudo pset -e socks
+    sudo pset -d all
+    sudo pset -d web
+    sudo pset -d socks
+
+* ip and port options are not supported for now
+
+pSet v0.1
+EOF
+)
+
+if [[ -z "$1" ]] || [[ "$1" == "-h" ]]; then
+	printf "${helptext}"
+  exit
+fi
+
+function setAll {
+  networksetup -setwebproxy ${proxy_device} ${http_ip} ${http_port}
+  networksetup -setsecurewebproxy ${proxy_device} ${http_ip} ${http_port}
+  networksetup -setsocksfirewallproxy ${proxy_device} ${http_ip} ${socks_port}
+}
+
+function enableSocks {
+  networksetup -setsocksfirewallproxystate ${proxy_device} on  
+}
+
+function enableWeb {
+  networksetup -setwebproxystate ${proxy_device} on
+  networksetup -setsecurewebproxystate ${proxy_device} on  
+}
+
+function disableSocks {
+  networksetup -setsocksfirewallproxystate ${proxy_device} off
+}
+
+function disableWeb {
+  networksetup -setwebproxystate ${proxy_device} off
+  networksetup -setsecurewebproxystate ${proxy_device} off
+}
+
+function enableAll {
+  enableWeb
+  enableSocks
+}
+
+function disableAll {
+  disableWeb
+  disableSocks
+}
+
+function listAll {
+  echo "Web Proxy"
+  networksetup -getwebproxy ${proxy_device}
+  echo ""
+
+  echo "Secured web proxy"
+  networksetup -getsecurewebproxy ${proxy_device}
+  echo ""
+
+  echo "Socks proxy"
+  networksetup -getsocksfirewallproxy ${proxy_device}
+}
+
+# Options to actions
+if [[ "$1" == "-l" ]]; then
+  listAll
+elif [[ "$1" == "-s" ]]; then
+  setAll
+  exit
+elif [[ "$1" == "-e" ]]; then
+  if [[ "$2" == "all" ]]; then
+    enableAll
+  elif [[ "$2" == "web" ]]; then
+    enableWeb
+  elif [[ "$2" == "socks" ]]; then
+    enableSocks
+  fi
+
+  exit
+elif [[ "$1" == "-d" ]]; then
+  if [[ "$2" == "all" ]]; then
+    disableAll
+  elif [[ "$2" == "web" ]]; then
+    disableWeb
+  elif [[ "$2" == "socks" ]]; then
+    disableSocks
+  fi
+
+  exit
+fi
