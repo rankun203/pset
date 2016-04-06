@@ -1,6 +1,7 @@
 # pset
 Bash, OS X: pSet - a CLI, help you manage your OSX network settings.
 
+```
 usage: sudo pset -l
        sudo pset -s
        sudo pset -e <all|web|socks>
@@ -41,3 +42,4 @@ EXAMPLES:
 * ip and port options are not supported for now
 
 pSet v0.1
+```
