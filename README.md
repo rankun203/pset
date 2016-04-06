@@ -1,6 +1,10 @@
 # pset
 Bash, OS X: pSet - a CLI, help you manage your OSX network settings.
 
+#### Suggested tools:
+
+- [Proxy settings OSX: OS X: scripts to set the proxy configuration for mvn, git, and curl](https://github.com/kontrafiktion/proxy-settings-osx)
+
 ```
 usage: sudo pset -l
        sudo pset -s
