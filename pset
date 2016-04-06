@@ -14,8 +14,6 @@ usage: sudo pset -l
 
 pSet - a CLI, help you manage your OSX network settings. <http://youdar.net>
 
-pre-defined ACTIONs:
-
 options:
 
   -d disable proxy
