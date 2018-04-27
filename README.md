@@ -1,7 +1,9 @@
 # pset
 Bash, OS X: pSet - a CLI, help you manage your OSX network settings.
 
-[![asciicast](https://asciinema.org/a/bpg5gngmuzgqr9dcu6xrtoiqw.png)](https://asciinema.org/a/bpg5gngmuzgqr9dcu6xrtoiqw)
+
+
+[<img width=589.5 height=412 src="https://asciinema.org/a/bpg5gngmuzgqr9dcu6xrtoiqw.png" />](https://asciinema.org/a/bpg5gngmuzgqr9dcu6xrtoiqw)
 
 ```
 usage: sudo pset -l
